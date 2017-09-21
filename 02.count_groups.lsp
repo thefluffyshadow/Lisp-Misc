@@ -2,9 +2,10 @@
 ;; =================================================================================================
 ;; count_groups function:
 ;;    Given a list, count the number of groups (a group is two or more identical adjecent items).
-;; Parameters: listofthings - a list of strings and/or numbers.
+;; Parameters:
+;; * lst - a list of strings and/or numbers.
 ;; Assumptions:
-;;    * The list contains no nested lists.
+;; * The list contains no nested lists.
 ;;
 
 (defun count-groups (lst)
@@ -37,12 +38,3 @@
 (setf mixed '(yes no no 23 -101 yes yes yes))
 (setf jackpot '(7 7 7 7 7 7 7))
 (setf many '(1 1 2 2 3 3 pi 4 4 5 5 6 6 6))
-
-(print "Test output section:")
-(print (count-groups empty_list))
-(print (count-groups abc))
-(print (count-groups kitty))
-(print (count-groups joy))
-(print (count-groups mixed))
-(print (count-groups jackpot))
-(print (count-groups many))
