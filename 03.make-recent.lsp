@@ -12,7 +12,7 @@
 
 (defun make-recent (wrd lst)
    (cond
-     ((NULL lst) nil)
+     ((NULL lst) (list wrd))
      ((equal wrd (car lst)) (cons wrd (car (cdr lst))))
      (t (make-recent wrd (cdr lst)))))
 
@@ -23,16 +23,19 @@
 ;; word in list             ("cat", (a cat came in))           (cat a came in)
 ;; word not in list         ("boy", (cat dog tree))            (boy cat dog tree)
 
-(setf empty '(mercy ()))
-(setf single '(mercy (mercy)))
-(setf word '(mercy (a mercy came in)))
-(setf no-word '(mercy (cat dog tree)))
-(setf first '(mercy (mercy roadhog hanzo)))
-(setf last '(mercy (roadhog hanzo mercy)))
+(setf test-word "mercy")
+
+(setf empty '())
+(setf single '(mercy))
+(setf word '(a mercy came in))
+(setf no-word '(cat dog tree))
+(setf first '(mercy roadhog hanzo))
+(setf last '(roadhog hanzo mercy))
 
 ;; Test section DELETE BEFORE TURNING IN
-(print (make-recent mercy empty))
-(print (make-recent mercy single))
-(print (make-recent mercy word))
-(print (make-recent mercy no-word))
-(print (make-recent mercy first))
+(print (make-recent test-word empty))
+(print (make-recent test-word single))
+(print (make-recent test-word word))
+(print (make-recent test-word no-word))
+(print (make-recent test-word first))
+(print (make-recent test-word last))
