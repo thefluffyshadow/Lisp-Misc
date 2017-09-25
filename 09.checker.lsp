@@ -70,7 +70,64 @@
 ;; numeric-operand-check test plan:
 ;; category/description       data                                      expected result
 ;; -------------------------------------------------------------------------------------------------
+;; empty expression           ()                                        NIL
+;; no valid operand           (man plus pig)                            NIL
+;; first valid operand        (2 plus pig)                              NIL
+;; last valid operand         (man plus 4)                              NIL
+;; valid operands             (2 plus 4)                                T
+
+(setf novalop '(man plus pig))
+(setf firstvalop '(2 plus pig))
+(setf lastvalop '(man plus 4))
+(setf valops '(2 plus 4))
 
 ;; valid-operator-check test plan:
 ;; category/description       data                                      expected result
 ;; -------------------------------------------------------------------------------------------------
+;; empty expression           ()                                        NIL
+;; plus                       (2 plus 4)                                T
+;; minus                      (2 minus 4)                               T
+;; times                      (2 times 4)                               T
+;; dividedby                  (2 dividedby 4)                           T
+;; nonword                    (2 + 4)                                   NIL
+;; what                       (2 car 4)                                 NIL
+
+(setf plus '(2 plus 4))
+(setf minus '(2 minus 4))
+(setf times '(2 times 4))
+(setf dividedby '(2 dividedby 4))
+(setf nonword '(2 + 4))
+(setf what '(2 car 4))
+
+(print "token-number-check tests:")
+(print (token-number-check empty))
+(print (token-number-check too-few))
+(print (token-number-check 3-wrong))
+(print (token-number-check 3-right))
+(print (token-number-check too-many))
+
+(print "numeric-operand-check tests:")
+(print (numeric-operand-check empty))
+(print (numeric-operand-check novalop))
+(print (numeric-operand-check firstvalop))
+(print (numeric-operand-check lastvalop))
+(print (numeric-operand-check valops))
+
+(print "valid-operator-check tests:")
+(print (valid-operator-check empty))
+(print (valid-operator-check plus))
+(print (valid-operator-check minus))
+(print (valid-operator-check times))
+(print (valid-operator-check dividedby))
+(print (valid-operator-check nonword))
+(print (valid-operator-check what))
+
+(print "checker tests:")
+(print (checker empty))
+(print (checker ordinary))
+(print (checker nested))
+(print (checker double-nested))
+(print (checker wrong-operand-number))
+(print (checker non-numeric-operands))
+(print (checker invalid-operator))
+(print (checker abomination))
