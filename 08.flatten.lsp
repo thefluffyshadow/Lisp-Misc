@@ -6,7 +6,11 @@
 ;; Assumptions:
 ;;    * No assumptions about the parameters
 
-(defun flatten (lst) nil)
+(defun flatten (lst)
+  (cond
+    ((NULL lst) nil)
+    ((listp (car lst)) (append (flatten (car lst)) (flatten (cdr lst))))
+    (t (cons (car lst) (flatten (cdr lst))))))
 
 ;; test plan for flatten:
 ;; category/description       data                          expected result
@@ -22,9 +26,3 @@
 (setf nestedsingle '((((4)))))
 (setf nonnested '(Hera Zeus Hades))
 (setf nested '(1 (2 (3) (3 (4 (5 5))) 2)))
-
-(print (flatten empty))
-(print (flatten nestedempty))
-(print (flatten nestedsingle))
-(print (flatten nonnested))
-(print (flatten nested))
