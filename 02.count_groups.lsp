@@ -59,7 +59,6 @@
 ;; partial group           (1 (1 1 1 2 2 2 2))              (2 2 2 2)
 
 (setf name 1)
-
 (setf singleton '(1))
 (setf whole '(1 1 1 1 1 1 1))
 (setf partial '(1 1 1 2 2 2 2))

@@ -49,7 +49,6 @@
 ;; word already last          ("mercy", (roadhog hanzo mercy))    ()
 
 (setf test-word 'mercy)
-
 (setf empty '())
 (setf single '(mercy))
 (setf already '(mercy a came in))

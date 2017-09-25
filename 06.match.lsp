@@ -32,11 +32,3 @@
 (setf inotinnestedlst '(1 2 3 (4 5 (6 7 4))))
 (setf iinnestedlst '(8 8 (2 5 4 (8) 76) 9 8))
 (setf verynestedlst '(((8 8)(8 8))((8 8)(8 8))))
-
-(print "tests:")
-(print (match i emptylst))
-(print (match i inotinlst))
-(print (match i iinlst))
-(print (match i inotinnestedlst))
-(print (match i iinnestedlst))
-(print (match i verynestedlst))
