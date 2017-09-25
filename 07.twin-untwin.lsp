@@ -19,7 +19,11 @@
     ((NULL lst) nil)
     (t (cons (car lst) (cons (car lst) (twin (cdr lst)))))))
 
-(defun untwin (lst) nil)
+(defun untwin (lst)
+  (cond
+    ((NULL lst) nil)
+    ((equal (car lst) (car (cdr lst))) (cons (car lst) (untwin (cdr (cdr lst)))))
+    (t (cons (car lst) (untwin (cdr lst))))))
 
 ;; test plan for twin:
 ;; category/description       data                    expected result
