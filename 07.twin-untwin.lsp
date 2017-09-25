@@ -14,7 +14,12 @@
 ;;    * lst is not a nested list
 ;;    * no more than 2 pairs will be adjacent
 
+(defun twin (lst)
+  (cond
+    ((NULL lst) nil)
+    (t (cons (car lst) (cons (car lst) (twin (cdr lst)))))))
 
+(defun untwin (lst) nil)
 
 ;; test plan for twin:
 ;; category/description       data                    expected result
@@ -24,10 +29,30 @@
 ;; mixed list                 (potion num 9)          (potion potion num num 9 9)
 ;; duplicates                 (16 4 4)                (16 16 4 4 4 4)
 
+(setf empty '())
+(setf singleton '(momhesmimicingme))
+(setf mixed '(potion num 9))
+(setf duplicates '(16 4 4))
+
 ;; test plan for untwin:
 ;; category/description       data                    expected result
 ;; -------------------------------------------------------------------------------------------------
 ;; empty list                 ()                      ()
 ;; no duplicates              (1 2 4 plutonium)       (1 2 4 plutonium)
 ;; all duplicates             (16 16 4 4 2 2)         (16 4 2)
-;; some duplicates            (1 1 11 4 8 8)          (1 11 4 8)
+;; some duplicates            (1 1 caffeine 4 8 8)    (1 caffeine 4 8)
+
+(setf noduplicates '(1 2 4 plutonium))
+(setf allduplicates '(16 16 4 4 2 2))
+(setf someduplicates '(1 1 caffeine 4 8 8))
+
+(print "twin tests")
+(print (twin empty))
+(print (twin singleton))
+(print (twin mixed))
+(print (twin duplicates))
+(print "untwin tests")
+(print (untwin empty))
+(print (untwin noduplicates))
+(print (untwin allduplicates))
+(print (untwin someduplicates))
