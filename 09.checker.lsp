@@ -38,20 +38,25 @@
 
 (defun numeric-operand-check (expression)
    (cond
-      ((not (or (numberp (car expression)) (numberp (car (cdr (cdr expression)))))) nil)
-      ((listp (car expression)) (numeric-operand-check (car expression)))
-      ((listp (car (cdr (cdr expression)))) (numeric-operand-check (car (cdr (cdr expression)))))
+      ((and (listp (car expression)) (> (length (car expression)) 1))
+         (numeric-operand-check (car expression)))
+      ((and (listp (car (cdr (cdr expression)))) (> (length (car (cdr (cdr expression)))) 1))
+         (numeric-operand-check (car (cdr (cdr expression)))))
+      ((not (numberp (car expression))) nil)
+      ((not (numberp (car (cdr (cdr expression))))) nil)
       (t t)))
 
 (defun valid-operator-check (expression)
    (cond
-      ((not (or (equal (car (cdr expression)) 'PLUS)
-                (equal (car (cdr expression)) 'MINUS)
-                (equal (car (cdr expression)) 'TIMES)
-                (equal (car (cdr expression)) 'DIVIDEDBY))) nil)
-      ((listp (car expression)) (valid-operator-check (car expression)))
-      ((listp (car (cdr (cdr expression)))) (valid-operator-check (car (cdr (cdr expression)))))
-      (t t)))
+      ((equal (car (cdr expression)) 'PLUS) t)
+      ((equal (car (cdr expression)) 'MINUS) t)
+      ((equal (car (cdr expression)) 'TIMES) t)
+      ((equal (car (cdr expression)) 'DIVIDEDBY) t)
+      ((and (listp (car expression)) (> (length expression) 1))
+         (valid-operator-check (car expression)))
+      ((and (listp (car (cdr (cdr expression)))) (> (length expression) 1))
+         (valid-operator-check (car (cdr (cdr expression)))))
+      (t nil)))
 
 ;; checker test plan:
 ;; category/description       data                                      expected result
