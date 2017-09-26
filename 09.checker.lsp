@@ -38,8 +38,10 @@
 
 (defun numeric-operand-check (expression)
    (cond
-     ((and (numberp (car expression)) (numberp (car (cdr (cdr expression))))) t)
-     (t nil)))
+      ((not (and (numberp (car expression)) (numberp (car (cdr (cdr expression)))))) nil)
+      ((listp (car expression)) (numeric-operand-check (car expression)))
+      ((listp (car (cdr (cdr expression)))) (numeric-operand-check (car (cdr (cdr expression)))))
+      (t t)))
 
 (defun valid-operator-check (expression)
    (cond
