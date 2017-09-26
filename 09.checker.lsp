@@ -2,27 +2,26 @@
 ;; =================================================================================================
 ;; checker function: checks the syntax of a list of math operations
 ;; Parameters:
-;;    * expression - a possibly nested list of mathematical expressions
-;; Assumpions:
-;;    * No assumpions about incoming parameters
+;;    expression - a possibly nested list of mathematical expressions
+;; Assumptions: No assumptions about incoming parameters
 
 ;; token-number-check function:
 ;; Parameters:
-;;    * expression - a possibly nested list of mathematical expressions
-;; Assumpions:
+;;    expression - a possibly nested list of mathematical expressions
+;; Assumptions: No assumptions about incoming parameters
 
 ;; numeric-operand-check function:
 ;; Parameters:
-;;    * expression - a possibly nested list of mathematical expressions
-;; Assumpions:
-;;    * expression has passed the token-number-check and therefore has 3 tokens
+;;    expression - a possibly nested list of mathematical expressions
+;; Assumptions:
+;;    1. expression has passed the token-number-check and therefore has 3 tokens
 
 ;; valid-operator-check function:
 ;; Parameters:
-;;    * expression - a possibly nested list of mathematical expressions
-;; Assumpions:
-;;    * expression has passed the token-number-check and therefore has 3 tokens
-;;    * expression has passed the numeric-operand-check and therefore has numeric operands
+;;    expression - a possibly nested list of mathematical expressions
+;; Assumptions:
+;;    1. expression has passed the token-number-check and therefore has 3 tokens
+;;    2. expression has passed the numeric-operand-check and therefore has numeric operands
 
 (defun checker (expression)
    (and (token-number-check expression)
@@ -38,9 +37,11 @@
 
 (defun numeric-operand-check (expression)
    (cond
-      ((and (listp (car expression)) (> (length (car expression)) 1))
+      ((and (listp (car expression))
+            (> (length (car expression)) 1))
          (numeric-operand-check (car expression)))
-      ((and (listp (car (cdr (cdr expression)))) (> (length (car (cdr (cdr expression)))) 1))
+      ((and (listp (car (cdr (cdr expression))))
+            (> (length (car (cdr (cdr expression)))) 1))
          (numeric-operand-check (car (cdr (cdr expression)))))
       ((not (numberp (car expression))) nil)
       ((not (numberp (car (cdr (cdr expression))))) nil)
@@ -48,9 +49,11 @@
 
 (defun valid-operator-check (expression)
    (cond
-      ((and (listp (car expression)) (> (length (car expression)) 1))
+      ((and (listp (car expression))
+            (> (length (car expression)) 1))
          (valid-operator-check (car expression)))
-      ((and (listp (car (cdr (cdr expression)))) (> (length (car (cdr (cdr expression)))) 1))
+      ((and (listp (car (cdr (cdr expression))))
+            (> (length (car (cdr (cdr expression)))) 1))
          (valid-operator-check (car (cdr (cdr expression)))))
       ((and (not (equal (car (cdr expression)) 'PLUS))
             (not (equal (car (cdr expression)) 'MINUS))
@@ -72,15 +75,6 @@
 ;; recursive                  ((1 plus 3) minus 3)                      T
 ;; really recursive           (1 times ((1 minus 3) dividedby 3))       T
 
-(setf empty '())
-(setf ordinary '(7 plus 11))
-(setf nested '(25 minus (17 times 12)))
-(setf double-nested '((100 plus 200) dividedby (17 times 5)))
-(setf wrong-operand-number '(-4 plus))
-(setf non-numeric-operands '(535 times (man plus pig)))
-(setf invalid-operator '(3 + 2))
-(setf abomination '(fifty-five * (iron plus pen)))
-
 ;; token-number-check test plan:
 ;; category/description       data                                      expected result
 ;; -------------------------------------------------------------------------------------------------
@@ -93,14 +87,6 @@
 ;; recursive fail             ((1 plus) minus 3)                        NIL
 ;; really recursive           (1 times ((1 minus 3) dividedby 3))       T
 
-(setf too-few wrong-operand-number)
-(setf 3-wrong invalid-operator)
-(setf 3-right ordinary)
-(setf too-many '(too many voices in my head))
-(setf recursive '((1 plus 3) minus 3))
-(setf recursivefail '((1 plus) minus 3))
-(setf reallyrecursive '(1 times ((1 minus 3) dividedby 3)))
-
 ;; numeric-operand-check test plan:
 ;; category/description       data                                      expected result
 ;; -------------------------------------------------------------------------------------------------
@@ -112,12 +98,6 @@
 ;; recursive                  ((1 plus 3) minus 3)                      T
 ;; recursive fail             ((man plus) minus 3)                      NIL
 ;; really recursive           (1 times ((1 minus 3) dividedby 3))       T
-
-(setf novalop '(man plus pig))
-(setf firstvalop '(2 plus pig))
-(setf lastvalop '(man plus 4))
-(setf valops '(2 plus 4))
-(setf numrecursivefail '((man plus) minus 3))
 
 ;; valid-operator-check test plan:
 ;; category/description       data                                      expected result
@@ -132,6 +112,29 @@
 ;; recursive                  ((1 plus 3) minus 3)                      T
 ;; recursive fail             ((1 + 3) minus 3)                         NIL
 ;; really recursive           (1 times ((1 minus 3) dividedby 3))       T
+
+(setf empty '())
+(setf ordinary '(7 plus 11))
+(setf nested '(25 minus (17 times 12)))
+(setf double-nested '((100 plus 200) dividedby (17 times 5)))
+(setf wrong-operand-number '(-4 plus))
+(setf non-numeric-operands '(535 times (man plus pig)))
+(setf invalid-operator '(3 + 2))
+(setf abomination '(fifty-five * (iron plus pen)))
+
+(setf too-few wrong-operand-number)
+(setf 3-wrong invalid-operator)
+(setf 3-right ordinary)
+(setf too-many '(too many voices in my head))
+(setf recursive '((1 plus 3) minus 3))
+(setf recursivefail '((1 plus) minus 3))
+(setf reallyrecursive '(1 times ((1 minus 3) dividedby 3)))
+
+(setf novalop '(man plus pig))
+(setf firstvalop '(2 plus pig))
+(setf lastvalop '(man plus 4))
+(setf valops '(2 plus 4))
+(setf numrecursivefail '((man plus) minus 3))
 
 (setf plus '(2 plus 4))
 (setf minus '(2 minus 4))

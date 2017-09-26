@@ -1,29 +1,26 @@
 ;; Zachary Champion - CS 3210 - Fall 2017
 ;; =================================================================================================
-;; is-almost-sorted function:
-;;    Takes a list of integers and returns true or nil for if the list is almost sorted (>80%) in
-;;    ascending order, but not completely sorted.
-;;    Parameters:
-;;       * lst - list of integers
-;;    Assumptions:
-;;       * The list contains no duplicates.
+;; is-almost-sorted function: Takes a list of integers and returns true or nil for if the list is
+;; almost sorted (>80%) in ascending order, but not completely sorted.
+;; Parameters:
+;;    lst - list of integers
+;; Assumptions:
+;;    1. The list contains no duplicates.
 
-;; is sorted function:
-;;    Takes a list of integers and returns true or nil for if the list is completely sorted in
-;;    ascending order.
-;;    Parameters:
-;;       * lst - list of integers
-;;    Assumptions:
-;;       * The list contains no duplicates.
+;; is sorted function: Takes a list of integers and returns true or nil for if the list is
+;; completely sorted in ascending order.
+;; Parameters:
+;;    lst - list of integers
+;; Assumptions:
+;;    1. The list contains no duplicates.
 
-;; inversions function:
-;;    Takes a list of integers and counts how many inversions are present in the list. An inversion
-;;    is defined as a pair of adjecent integers in the wrong order (i.e. descending order, in this
-;;    case).
-;;    Parameters:
-;;       * lst - list of integers
-;;    Assumptions:
-;;       * The list has no duplicates.
+;; inversions function: Takes a list of integers and counts how many inversions are present in the
+;; list. An inversion is defined as a pair of adjecent integers in the wrong order (i.e. descending
+;; order, in this case).
+;; Parameters:
+;;    lst - list of integers
+;; Assumptions:
+;;    1. The list has no duplicates.
 
 (defun is-almost-sorted (lst)
    (cond
