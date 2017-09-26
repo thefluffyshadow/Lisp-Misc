@@ -52,10 +52,10 @@
          (valid-operator-check (car expression)))
       ((and (listp (car (cdr (cdr expression)))) (> (length (car (cdr (cdr expression)))) 1))
          (valid-operator-check (car (cdr (cdr expression)))))
-      ((or (not (equal (car (cdr expression)) 'PLUS))
-           (not (equal (car (cdr expression)) 'MINUS))
-           (not (equal (car (cdr expression)) 'TIMES))
-           (not (equal (car (cdr expression)) 'DIVIDEDBY))) nil)
+      ((and (not (equal (car (cdr expression)) 'PLUS))
+            (not (equal (car (cdr expression)) 'MINUS))
+            (not (equal (car (cdr expression)) 'TIMES))
+            (not (equal (car (cdr expression)) 'DIVIDEDBY))) nil)
       (t t)))
 
 ;; checker test plan:
@@ -75,7 +75,7 @@
 (setf empty '())
 (setf ordinary '(7 plus 11))
 (setf nested '(25 minus (17 times 12)))
-(setf double-nested '(100 plus 200 dividedby (17 times 5)))
+(setf double-nested '((100 plus 200) dividedby (17 times 5)))
 (setf wrong-operand-number '(-4 plus))
 (setf non-numeric-operands '(535 times (man plus pig)))
 (setf invalid-operator '(3 + 2))
@@ -139,7 +139,7 @@
 (setf dividedby '(2 dividedby 4))
 (setf nonword '(2 + 4))
 (setf what '(2 car 4))
-(setf valrecursivefail '(1 times ((1 minus 3) dividedby 3)))
+(setf valrecursivefail '(1 times ((1 - 3) dividedby 3)))
 
 (print "checker tests:")
 (print (equal (checker empty) nil))
