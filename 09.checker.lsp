@@ -48,15 +48,15 @@
 
 (defun valid-operator-check (expression)
    (cond
-      ((equal (car (cdr expression)) 'PLUS) t)
-      ((equal (car (cdr expression)) 'MINUS) t)
-      ((equal (car (cdr expression)) 'TIMES) t)
-      ((equal (car (cdr expression)) 'DIVIDEDBY) t)
-      ((and (listp (car expression)) (> (length expression) 1))
+      ((and (listp (car expression)) (> (length (car expression)) 1))
          (valid-operator-check (car expression)))
-      ((and (listp (car (cdr (cdr expression)))) (> (length expression) 1))
+      ((and (listp (car (cdr (cdr expression)))) (> (length (car (cdr (cdr expression)))) 1))
          (valid-operator-check (car (cdr (cdr expression)))))
-      (t nil)))
+      ((or (not (equal (car (cdr expression)) 'PLUS))
+           (not (equal (car (cdr expression)) 'MINUS))
+           (not (equal (car (cdr expression)) 'TIMES))
+           (not (equal (car (cdr expression)) 'DIVIDEDBY))) nil)
+      (t t)))
 
 ;; checker test plan:
 ;; category/description       data                                      expected result
